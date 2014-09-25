@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <style type="text/css">
+    body>div { display: inline-block; }
+    canvas { border: 10px solid #666; }
+    img { border: 10px solid green; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>canvas</h1>
+      <canvas width="500" height="500"></canvas>
+    </div>
+    <div>
+      <h1>img</h1>
+      <img>
+    </div>
+
+    <!-- <script src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> -->
+    <script src="js/canvg-custom.js"></script>
+    <script src="../lib/SvgImage.js"></script>
+
+    <script>
+    // Note: More work is needed to support IE.  Use an XHR lib (or jquery) to make this request.
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', 'https://s3.amazonaws.com/engineering.designashirt.com/oss/tests/svg/publicdomain.svg', true);
+    xhr.onload = function() {
+      var src = xhr.responseXML;
+
+      // now let's modify some colors
+      Array.prototype.forEach.call(src.querySelectorAll('[fill]'), function(el) {
+        el.setAttribute('fill', 'red');
+      });
+
+      SvgImage(src, function(err, img) {
+        if (err) throw err;
+
+        var canvas = document.querySelector('canvas')
+          , context = canvas.getContext('2d');
+
+        context.drawImage(img, 0, 0);
+        document.querySelector('img').src = canvas.toDataURL();
+      });
+    };
+    xhr.send();
+    </script>
+  </body>
+</html>

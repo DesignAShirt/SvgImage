@@ -1,0 +1,23 @@
+{
+  "name": "SvgImage",
+  "version": "0.0.0",
+  "description": "Allows for cross-browser reading/writing SVG to HTML canvas",
+  "main": "dist/SvgImage.js",
+  "author": {
+    "name": "Cory Mawhorter",
+    "email": "cory.mawhorter@gmail.com"
+  },
+  "repository": {
+    "url": "git@github.com:DesignAShirt/SvgImage.git",
+    "type": "git"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

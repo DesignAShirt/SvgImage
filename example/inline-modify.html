@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <style type="text/css">
+    body>div { display: inline-block; }
+    canvas { border: 10px solid #666; }
+    img { border: 10px solid green; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>canvas</h1>
+      <canvas width="500" height="500"></canvas>
+    </div>
+    <div>
+      <h1>img</h1>
+      <img>
+    </div>
+
+    <!-- <script src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> -->
+    <script src="js/canvg-custom.js"></script>
+    <script src="../lib/SvgImage.js"></script>
+
+
+    <h1>source</h1>
+    <object id="svg" data="publicdomain.svg" type="image/svg+xml"></object>
+    <p>Note: This method will not work cross-origin.</p>
+
+    <script>
+    var svg = document.getElementById('svg');
+    svg.onload = function() {
+      var src = svg.contentDocument;
+
+      // now let's modify some colors
+      Array.prototype.forEach.call(src.querySelector('svg').querySelectorAll('[fill]'), function(el) {
+        el.setAttribute('fill', 'red');
+      });
+
+      SvgImage(src, function(err, img) {
+        if (err) throw err;
+
+        var canvas = document.querySelector('canvas')
+          , context = canvas.getContext('2d');
+
+        context.drawImage(img, 0, 0);
+        document.querySelector('img').src = canvas.toDataURL();
+      });
+    };
+    </script>
+  </body>
+</html>
